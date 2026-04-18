@@ -12,7 +12,7 @@ We propose a **no-reference audio-visual quality assessment (NR-AVQA)** method t
 
 |  Dataset  | Distortion Type | Orig Seq Num | Dis Seq Num |              Resolution              | Duration |
 |:---------:|:---------------:|--------------|:-----------:|:------------------------------------:|:--------:|
-| LIVE-SJTU |    Synthetic    |      14      |     336     |             1920 * 1080              |    8s    |
+| LIVE-SJTU |    Synthetic    |     14       |     336     |             1920 * 1080              |    8s    |
 |  UnB-AVC  |    Synthetic    |      6       |     72      |              1280 * 720              |    8s    |
 | SJTU-UAV  |     Natural     |     520      |     520     | 1280 * 720 / 960 * 720 / 1920 * 1080 |    8s    |
 
