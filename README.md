@@ -2,7 +2,7 @@
 ***IEEE TCSVT2026 🎉🎉***: [Multi-modal Cross-Attention Guided Network for Audio-Visual Quality Evaluation via Visual Saliency and Mel-spectrum Features](https://ieeexplore.ieee.org/document/11345165)
 
 ### 💬 Introduction
-We propose a **no-reference audio-visual quality assessment (NR-AVQA)** method that explicitly models cross-modal interactions.
+We proposed a **no-reference audio-visual quality assessment (NR-AVQA)** method that explicitly models cross-modal interactions.
 
 * Leverage visual saliency to focus on human-perceptually important regions.
 * Use Mel-spectrum to align with human auditory system characteristics.
