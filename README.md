@@ -47,40 +47,7 @@ Our research follows **ANNAVQA** train/test framework, the related code is avail
   keywords={Feature extraction;Visualization;Quality assessment;Measurement;Streaming media;Video recording;Computer architecture;Audio-visual quality assessment;attentional neural networks;multimodal fusion},
   doi={10.1109/TIP.2023.3251695}}
 ```
-#### Audio Processor
-```latex
-@article{Gong2021ASTAS,
-  title={AST: Audio Spectrogram Transformer},
-  author={Yuan Gong and Yu-An Chung and James R. Glass},
-  journal={ArXiv},
-  year={2021},
-  volume={abs/2104.01778},
-  url={https://api.semanticscholar.org/CorpusID:233024831}
-}
-```
-#### Visual Backbone
-```latex
-@article{lee2019centermask,
-  title={CenterMask: Real-Time Anchor-Free Instance Segmentation},
-  author={Lee, Youngwan and Park, Jongyoul},
-  booktitle={CVPR},
-  year={2020}
-}
-```
-#### Cross Attention Fusion
-```latex
-@INPROCEEDINGS{9856650,
-  author={Praveen, R Gnana and de Melo, Wheidima Carneiro and Ullah, Nasib and Aslam, Haseeb and Zeeshan, Osama and Denorme, Théo and Pedersoli, Marco and Koerich, Alessandro L. and Bacon, Simon and Cardinal, Patrick and Granger, Eric},
-  booktitle={2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, 
-  title={A Joint Cross-Attention Model for Audio-Visual Fusion in Dimensional Emotion Recognition}, 
-  year={2022},
-  volume={},
-  number={},
-  pages={2485-2494},
-  keywords={Correlation coefficient;Emotion recognition;Visualization;Correlation;Computational modeling;Predictive models;Feature extraction},
-  doi={10.1109/CVPRW56347.2022.00278}}
-}
-```
+
 ### 😊 Cite Us
 
 If you have any questions, please contact us via email.
