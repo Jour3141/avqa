@@ -25,10 +25,9 @@ We proposed a **no-reference audio-visual quality assessment (NR-AVQA)** method 
 
 ### ️️💡 Guide
 
-* Run VisualSaliency/sal_model.m in Matlab to obtain the position map of video frames. (This processing step is the source of overhead for the model, and more efficient preprocessing methods are worth exploring.)
-* The complete model is contained in demo.py.
-* Our method still has room for improvement on the SJTU-UAV dataset. (Due to special restrictions, some models that achieve SOTA performance on the SJTU-UAV database are not listed in the article.)
-* It is necessary to establish cross-modal relationships at the stage of spatial-domain feature extraction. (See the limitation description of the paper for details.)
+* Run **VisualSaliency/sal_model.m** in Matlab to obtain the position map of video frames.
+* The complete model is contained in **demo.py**. Create a folder named **test_av_seq** and put the audio and video files into it. 
+* There exist works that outperform our method on the **SJTU-UAV database**. Researchers can further improve our work based on the limitations discussed in paper.
 
 ### 🌹🌹 Acknowledgments 🌹🌹
 
