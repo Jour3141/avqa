@@ -285,9 +285,6 @@ def get_Afeatures(audios_data, audio_tStamp, frameRate, frame_interval, device='
     return dis_output
 
 
-'----------------------------------------A/V Feature Fusion------------------------------------------------'
-
-
 class CAM(nn.Module):
     def __init__(self):
         super(CAM, self).__init__()
@@ -355,7 +352,6 @@ class CAM(nn.Module):
         return final_outs
 
 
-'-----------------------------------------Main Progress------------------------------------------------'
 import time
 import torch
 
