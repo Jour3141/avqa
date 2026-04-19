@@ -21,7 +21,7 @@ dis_audio_name = ['Boxing_8kbps.wav']
 SDdatainfo = './VisualSaliency/V_position_single.mat'
 ckpt_path = './checkpoints/epoch9'
 
-'----------------------------------------patch split-----------------------------------------'
+
 position_width = []
 position_height = []
 height = 1080
@@ -53,9 +53,6 @@ for h in range(0, height, dis_patch):
         break
 
 position = [position_height, position_width]
-
-
-'-------------------------------------Video data load-----------------------------------------'
 
 
 class VideoDataset(Dataset):
@@ -103,11 +100,7 @@ class VideoDataset(Dataset):
         return sample
 
 
-'-------------------------------------Audio data load-----------------------------------------'
-
-
 def melSpectrogram(audiofile):
-    print(audiofile)
     waveform, sr = torchaudio.load(audiofile)
     waveform = waveform[0, :].unsqueeze(0)
 
@@ -129,9 +122,8 @@ def melSpectrogram(audiofile):
     fbank = (fbank - (-4.2677393)) / (4.5689974 * 2)
     fbank = fbank.numpy()
 
-    # 计算 t_sp
-    windowsize = round(sr * 0.02)  # 20ms
-    overlap = 0.75  # 75% overlap: a 20ms window every 5ms
+    windowsize = round(sr * 0.02)
+    overlap = 0.75
     window_overlap = int(windowsize * overlap)
     num_blocks = int((waveform.size(1) - window_overlap) / (windowsize - window_overlap))
     t_sp = np.empty(num_blocks, dtype=float)
@@ -141,7 +133,6 @@ def melSpectrogram(audiofile):
 
 
 class AudioDataset(Dataset):
-    """Read data from the original dataset for feature extraction"""
     def __init__(self, audios_dir, audios_names, audio_frameRate):
         super(AudioDataset, self).__init__()
         self.audios_dir = audios_dir
@@ -166,7 +157,6 @@ class AudioDataset(Dataset):
         return sample
 
 
-'-------------------------------------Video Feature Extraction--------------------------------------------'
 from detectron2.config import get_cfg
 from config import add_vovnet_config
 from vovnet import VoVNet
@@ -219,7 +209,6 @@ def get_features(dis_video_data, position, sal_index, frame_length, frame_interv
     with torch.no_grad():
         for iframe in range(0, frame_length, frame_interval):
             sal_row = int(iframe / 2)
-            # initialize
             dis_output1 = torch.Tensor().to(device)
             dis_output2 = torch.Tensor().to(device)
             for idx in range(patchNum):
@@ -235,9 +224,6 @@ def get_features(dis_video_data, position, sal_index, frame_length, frame_interv
                 dis_output1 = torch.cat((dis_output1, dis_features_mean), 0)
                 dis_output2 = torch.cat((dis_output2, dis_features_std), 0)
 
-                ''' dis_output1.shape --->([1, 2048, 1, 1])--->([25, 2048, 1, 1]).mean---> 1 frame'''
-                ''' dis_output2.shape --->([1, 2048, 1, 1])--->([25, 2048, 1, 1]).mean---> 1 frame'''
-
                 ipatch = ipatch + 1
                 print('\r iframe: {} ipatch: {} ' .format(iframe, ipatch), end=' ')
 
@@ -246,10 +232,7 @@ def get_features(dis_video_data, position, sal_index, frame_length, frame_interv
             ipatch = 0
         dis_output = dis_output.squeeze()
     return dis_output
-
-
-'-------------------------------------Audio Feature Extraction--------------------------------------------'
-
+    
 
 def get_Afeatures(audios_data, audio_tStamp, frameRate, frame_interval, device='cpu'):
     """feature extraction"""
@@ -342,15 +325,10 @@ class CAM(nn.Module):
 
             aud_fts = self.encoder1(audfts)
             vis_fts = self.encoder2(visfts)
-            # print(aud_fts.shape)
             aud_vis_fts = torch.cat((aud_fts, vis_fts), 1)
-            # print(aud_vis_fts.shape)
             a_t = self.affine_a(aud_vis_fts.transpose(0, 1))
-            # print(a_t.shape)
             att_aud = torch.mm(aud_fts.transpose(0, 1), a_t.transpose(0, 1))
-            # print(att_aud.shape)
             audio_att = self.tanh(torch.div(att_aud, math.sqrt(aud_vis_fts.shape[1])))
-            # print(audio_att.shape)
 
             aud_vis_fts = torch.cat((aud_fts, vis_fts), 1)
             v_t = self.affine_v(aud_vis_fts.transpose(0, 1))
@@ -358,11 +336,9 @@ class CAM(nn.Module):
             vis_att = self.tanh(torch.div(att_vis, math.sqrt(aud_vis_fts.shape[1])))
 
             H_a = self.relu(self.W_ca(audio_att) + self.W_a(aud_fts.transpose(0, 1)))
-            # print(H_a.shape)
             H_v = self.relu(self.W_cv(vis_att) + self.W_v(vis_fts.transpose(0, 1)))
 
             att_audio_features = self.W_ha(H_a).transpose(0, 1) + aud_fts
-            # print(att_audio_features.shape)
             att_visual_features = self.W_hv(H_v).transpose(0, 1) + vis_fts
 
             audiovisualfeatures = torch.cat((att_audio_features, att_visual_features), 1)
@@ -405,11 +381,9 @@ start_time = time.time()
 Vfeatures = get_features(current_dis_video, position, sal_index, frame_length, frame_interval, patchSize, patchNum, device='cpu')
 Afeatures = get_Afeatures(current_audio, current_tStamp, current_data['frameRate'], frame_interval, device='cpu')
 
-# [1, 96, 2048]
 Vfeatures = Vfeatures.unsqueeze(0)
 Afeatures = Afeatures.unsqueeze(0)
 
-# [1, 24, 2048]
 V_chunks = torch.chunk(Vfeatures, 4, dim=1)
 A_chunks = torch.chunk(Afeatures, 4, dim=1)
 
