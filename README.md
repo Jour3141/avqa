@@ -29,7 +29,7 @@ We proposed a **no-reference audio-visual quality assessment (NR-AVQA)** method 
 * The complete model is contained in **demo.py**. Create a folder named **test_av_seq** and put the audio and video files into it. 
 * There exist works that outperform our method on the **SJTU-UAV database**. Researchers can further improve our work based on the limitations discussed in paper.
 
-### 🌹🌹 Acknowledgments 🌹🌹
+### 🌹🌹 Acknowledgment 🌹🌹
 
 This work is primarily developed based on the following research:
 
